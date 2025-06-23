@@ -233,6 +233,21 @@
   }
   updateQuote();
   setInterval(updateQuote, 10000);
+  
+  // NEW: Her pics logic (must match filenames inside "her pics/" folder)
+  
+  const herPics = ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg"]; // Add in order
+  let picIndex = 0;
+  
+  function updateHerPic() {
+    const img = document.getElementById("her-pic");
+    img.src = `her pics/${herPics[picIndex]}`;
+    picIndex = (picIndex + 1) % herPics.length; // loop back to start
+  }
+
+  updateHerPic(); // initial
+  setInterval(updateHerPic, 10000); // every 10s
+  
 
   const datepicker = new Datepicker(document.getElementById("datepicker"), { autohide: true });
   document.getElementById("calendar-date").textContent = new Date().toDateString();
