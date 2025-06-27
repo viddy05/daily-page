@@ -163,11 +163,11 @@
         <p id="canada-time"></p>
         <div class="weather" id="weather-canada">Loading...</div>
       </div>
-        <div class="time-box">
+      <div class="time-box">
         <h2>When You’re Mad 😠</h2>
         <img id="bonk-image" src="milkmocha-calm.png" alt="Milk and Mocha" style="width: 140px; border-radius: 12px; margin-bottom: 1rem;" />
         <button onclick="bonk()" style="background-color: #ffc0cb; color: #333; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; font-family: 'Quicksand', sans-serif; cursor: pointer; font-size: 1rem; display: block; margin: 0 auto;">BONK!</button>
-        </div>
+      </div>
     </div>
   </main>
 
@@ -282,25 +282,21 @@
     updateContent(todayStr);
 
     function bonk() {
-  const img = document.getElementById('bonk-image');
-  const frames = [
-    "milkmocha-punch.png",
-    "milkmocha-punch1.png",
-    "milkmocha-punch2.png"
-  ];
-  frames.forEach((src, i) => {
-    setTimeout(() => {
-      img.src = src;
-    }, i * 600);
-  });
-  setTimeout(() => {
-    img.src = "milkmocha-calm.png";
-  }, frames.length * 600);
-}
-
-
-
-    
+      const img = document.getElementById('bonk-image');
+      const frames = [
+        "milkmocha-punch.png",
+        "milkmocha-punch1.png",
+        "milkmocha-punch2.png"
+      ];
+      frames.forEach((src, i) => {
+        setTimeout(() => {
+          img.src = src;
+        }, i * 600);
+      });
+      setTimeout(() => {
+        img.src = "milkmocha-calm.png";
+      }, frames.length * 600);
+    }
   </script>
 </body>
 </html>
