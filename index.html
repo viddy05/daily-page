@@ -26,6 +26,13 @@
       font-size: 2rem;
       margin: 0 auto;
     }
+    header h1#greeting::before {
+      content: "😇 ";
+    }
+    header .datetime {
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
     main {
       display: flex;
       flex-wrap: wrap;
@@ -56,10 +63,6 @@
       border-radius: 12px;
       margin-bottom: 1rem;
     }
-    .quote-divider {
-      border-top: 1px solid #e0c79e;
-      margin: 1rem 0;
-    }
     .content {
       flex: 2;
       text-align: center;
@@ -70,26 +73,64 @@
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(220, 180, 240, 0.3);
       text-align: center;
-      margin-bottom: 1rem;
     }
-    .notes {
-      background: #fff8f0;
-      border: 1px dashed #c0a68c;
-      border-radius: 12px;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #775c46;
+    .calendar h2::after {
+      content: " \1F4C5";
+    }
+    .time-box h2 {
+      font-size: 1rem;
+      margin: 0.6rem 0 0.2rem;
+      color: #6b4c7d;
+    }
+    .time-box p {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin: 0 0 0.3rem;
+    }
+    .weather {
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      color: #7a5e8a;
+    }
+    #datepicker {
+      margin-top: 0.5rem;
+      padding: 0.5rem;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
     }
     iframe#spotify-frame {
       width: 60%;
       height: 80px;
       border-radius: 8px;
     }
-    img.flower {
-      width: 240px;
-      height: 320px;
-      object-fit: cover;
+    .scrapbook {
+      padding: 2rem;
+      text-align: center;
+    }
+    .scrap-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    .scrap-card {
+      background: white;
       border-radius: 12px;
+      padding: 1rem;
+      box-shadow: 0 0 8px rgba(200, 150, 200, 0.2);
+      width: 180px;
+    }
+    .scrap-card img {
+      width: 100%;
+      border-radius: 8px;
+      margin: 0.5rem 0;
+    }
+    .scrap-card a {
+      color: #6a4f7b;
+      text-decoration: none;
+      font-weight: bold;
     }
     .her-moments {
       margin-top: 2rem;
@@ -109,7 +150,7 @@
 </head>
 <body>
   <header>
-    <h1 id="greeting">Good Morning 😇 (Dheeraj Special)</h1>
+    <h1 id="greeting">Good Morning</h1>
     <div class="datetime"><p id="top-time"></p></div>
   </header>
 
@@ -126,50 +167,54 @@
           <li>I’ll be cute</li>
           <li>I’ll be always right</li>
         </ul>
-        <div class="quote-divider"></div>
-        <blockquote id="her-quote"></blockquote>
         <div class="her-moments">
-          <h3>Daily Memes 😂</h3>
-          <img id="her-pic" src="her pics/1.jpeg" alt="Meme" />
+          <h3>🎀 Her Cutest Moments</h3>
+          <img id="her-pic" src="her pics/1.jpeg" alt="Her Pic">
+          <blockquote id="her-quote"></blockquote>
         </div>
       </div>
     </div>
 
     <div class="content">
       <div class="section">
-        <h2>Flower of the Day</h2>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <img id="flower-image-1" class="flower" src="" alt="Flower 1" />
-          <img id="flower-image-2" class="flower" src="" alt="Flower 2" />
-        </div>
+        <h2>Today's Flower</h2>
+        <img id="flower-image" src="daily/2025-06-22.jpg" alt="Daily Flower" style="max-width:100%; border-radius:12px;" />
       </div>
-      <div class="section" style="display: flex; flex-direction: column; align-items: center;">
+      <div class="section">
         <h2>Today's Song</h2>
-        <iframe id="spotify-frame" src="" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <iframe id="spotify-frame" src="https://open.spotify.com/embed/track/6nek1Nin9q48AVZcWs9e9D?utm_source=generator" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
     </div>
 
     <div class="info-panel">
       <div class="calendar">
-        <h2>Select Date 📅</h2>
+        <h2>Calendar</h2>
         <p id="calendar-date"></p>
         <input type="text" id="datepicker" placeholder="Select a date" readonly />
       </div>
       <div class="time-box">
-        <h2>Amritsar Time</h2>
+        <h2>Her Time (India)</h2>
         <p id="india-time"></p>
         <div class="weather" id="weather-india">Loading...</div>
-        <h2>Ottawa Time</h2>
+        <h2>Your Time (Ottawa)</h2>
         <p id="canada-time"></p>
         <div class="weather" id="weather-canada">Loading...</div>
+      </div>
+      <div class="time-box">
+        <h2>When You’re Mad 😠</h2>
+        <img id="bonk-image" src="milkmocha-calm.png" alt="Milk and Mocha" style="width: 140px; border-radius: 12px; margin-bottom: 1rem;" />
+        <button onclick="bonk()" style="background-color: #ffc0cb; color: #333; border: none; padding: 8px 16px; border-radius: 8px; font-weight: bold; font-family: 'Quicksand', sans-serif; cursor: pointer;font-size: 1rem; display: block; margin: 0 auto;">I'M MAD!</button>
       </div>
     </div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
   <script>
-    const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
-    const todayStr = istNow.toISOString().split("T")[0];
+    const topTime = document.getElementById("top-time");
+    setInterval(() => {
+      const now = new Date();
+      topTime.textContent = now.toLocaleString("en-US", { dateStyle: "full", timeStyle: "short" });
+    }, 1000);
 
     const indiaTime = document.getElementById("india-time");
     const canadaTime = document.getElementById("canada-time");
@@ -179,102 +224,58 @@
       canadaTime.textContent = new Date(now.toLocaleString("en-US", { timeZone: "America/Toronto" })).toLocaleTimeString();
     }, 1000);
 
-    const topTime = document.getElementById("top-time");
-    setInterval(() => {
-      const now = new Date();
-      topTime.textContent = now.toLocaleString("en-US", { dateStyle: "full", timeStyle: "short" });
-    }, 1000);
-
-    async function fetchWeather(lat, lon, elementId) {
-      try {
-        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=1&current_weather=true`);
-        const data = await res.json();
-        document.getElementById(elementId).textContent = `${data.current_weather.temperature}°C`;
-      } catch {
-        document.getElementById(elementId).textContent = "Weather not available.";
-      }
-    }
-    fetchWeather(31.6340, 74.8723, "weather-india");
-    fetchWeather(45.4215, -75.6972, "weather-canada");
-
-    async function updateHerPic() {
-      try {
-        const res = await fetch('her pics/memes.json');
-        const pics = await res.json();
-        const img = document.getElementById("her-pic");
-        let index = 0;
-        function rotate() {
-          img.src = `her pics/${pics[index]}?v=${Date.now()}`;
-          index = (index + 1) % pics.length;
-        }
-        rotate();
-        setInterval(rotate, 10000);
-      } catch (e) {
-        console.error("Could not load memes.json", e);
-      }
-    }
-    updateHerPic();
-
     const quotes = [
-      "I would jump to all conclusions if those lead to you 🪿 - Kanika, May 2025",
       "The way she says 'hmm' 💭",
       "Giggle level over 3000 🎀",
       "Pyari Precious Pookie 🎀",
-      "Monday Yellow 🌻",
-      "You’re un-matcha-able 🍵👌🏼",
-      "Paused. Felt. Gratefull !!!",
-      "Matcha is Grass,Grass is Matcha 🍵"
+      "Monday Yellow 🌻"
     ];
     function updateQuote() {
-      document.getElementById("her-quote").textContent =
-        quotes[Math.floor(Math.random() * quotes.length)];
+      const q = quotes[Math.floor(Math.random() * quotes.length)];
+      document.getElementById("her-quote").textContent = q;
     }
     updateQuote();
     setInterval(updateQuote, 10000);
 
-    const datepickerEl = document.getElementById("datepicker");
-    const datepicker = new Datepicker(datepickerEl, { autohide: true });
-    datepicker.setDate(istNow);
-
-    function tryImageExtensions(basePath, elementId) {
-      const img = document.getElementById(elementId);
-      const jpgPath = `${basePath}.jpg`;
-      const jpegPath = `${basePath}.jpeg`;
-      img.onerror = () => {
-        img.onerror = null;
-        img.src = jpegPath;
-      };
-      img.src = jpgPath;
+    const herPics = ["1.jpeg", "2.jpeg", "3.jpeg", "4.jpeg"];
+    let picIndex = 0;
+    function updateHerPic() {
+      const img = document.getElementById("her-pic");
+      img.src = `her pics/${herPics[picIndex]}`;
+      picIndex = (picIndex + 1) % herPics.length;
     }
+    updateHerPic();
+    setInterval(updateHerPic, 10000);
 
-    async function updateContent(selectedDateStr) {
-      const istDate = new Date(new Date(selectedDateStr).toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
-      document.getElementById("calendar-date").textContent = istDate.toDateString();
+    const datepicker = new Datepicker(document.getElementById("datepicker"), { autohide: true });
+    document.getElementById("calendar-date").textContent = new Date().toDateString();
 
-      tryImageExtensions(`daily/${selectedDateStr}`, "flower-image-1");
-      tryImageExtensions(`daily/${selectedDateStr}b`, "flower-image-2");
-
-      try {
-        const res = await fetch("songs.json");
-        const songs = await res.json();
-        const trackId = songs[selectedDateStr];
-        const spotifyFrame = document.getElementById("spotify-frame");
-        if (trackId) {
-          spotifyFrame.src = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator`;
-          spotifyFrame.style.display = "block";
-        } else {
-          spotifyFrame.style.display = "none";
-        }
-      } catch (err) {
-        document.getElementById("spotify-frame").style.display = "none";
-      }
+    async function fetchWeather(lat, lon, elementId) {
+      const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=1&current_weather=true`);
+      const data = await res.json();
+      const weather = data.current_weather;
+      const icon = weather.weathercode === 0 ? "☀️" : weather.weathercode < 50 ? "☁️" : "🌧️";
+      document.getElementById(elementId).textContent = `${weather.temperature}°C, ${icon}`;
     }
+    fetchWeather(31.6340, 74.8723, "weather-india");
+    fetchWeather(45.4201, 75.7003, "weather-canada");
 
-    datepickerEl.addEventListener("changeDate", (e) => {
-      const selectedDate = e.detail.date.toISOString().split("T")[0];
-      updateContent(selectedDate);
-    });
-    updateContent(todayStr);
+    function bonk() {
+      const img = document.getElementById('bonk-image');
+      const frames = [
+        "milkmocha-punch.png",
+        "milkmocha-punch1.png",
+        "milkmocha-punch2.png"
+      ];
+      frames.forEach((src, i) => {
+        setTimeout(() => {
+          img.src = src;
+        }, i * 600);
+      });
+      setTimeout(() => {
+        img.src = "milkmocha-calm.png";
+      }, frames.length * 600);
+    }
   </script>
 </body>
 </html>
