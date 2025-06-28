@@ -9,8 +9,10 @@
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
-      background: url('hand-drawn-sunflower-yellow-background.jpg') center center / cover no-repeat fixed;
+      background: url('hq720.jpg') center center / cover no-repeat fixed;
       margin: 0;
+      background-size: 50%;
+      background-position: 110% center;
       color: #54455c;
     }
     header {
@@ -105,11 +107,46 @@
       font-style: italic;
       color: #8a6a9e;
     }
+
+    /* Disney Affirmation Styling */
+    .disney-affirmation {
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .minnie-quote-container {
+      position: relative;
+      display: inline-block;
+      width: 240px;
+    }
+    #minnie-img {
+      width: 100%;
+      display: block;
+    }
+   .minnie-quote-text {
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150px;
+      height: 38px; /* enough room for two lines */
+      font-family: 'Georgia', serif;
+      font-size: 0.68rem;
+      font-weight: bold;
+      color: #3a2a2a;
+      text-align: center;
+      line-height: 1.2;
+      overflow: hidden;
+      word-break: break-word;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -55%); }
+      to   { opacity: 1; transform: translate(-50%, -50%); }
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1 id="greeting">Good Morning 😇 (Dheeraj Special)</h1>
+    <h1 id="greeting">Good Morning 😇 (I'm Sorry for last night)</h1>
     <div class="datetime"><p id="top-time"></p></div>
   </header>
 
@@ -146,6 +183,15 @@
       <div class="section" style="display: flex; flex-direction: column; align-items: center;">
         <h2>Today's Song</h2>
         <iframe id="spotify-frame" src="" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+
+      <!-- 🌸 Disney Affirmation Block -->
+      <div class="disney-affirmation">
+        <h2>🌸Disney Whisper from Me to You...</h2>
+        <div class="minnie-quote-container">
+          <img id="minnie-img" src="minnie-quote.png" alt="Minnie silhouette" />
+          <div class="minnie-quote-text" id="disney-quote">✨</div>
+        </div>
       </div>
     </div>
 
@@ -297,6 +343,23 @@
         img.src = "milkmocha-calm.png";
       }, frames.length * 600);
     }
+
+    // ✨ Disney Quote Rotation
+    const disneyAffirmations = [
+      "You're the flower that blooms in adversity – Mulan 🌸",
+      "You are the light that never goes out – Rapunzel ✨",
+      "Some people (you) are worth melting for – Olaf ☃️",
+      "You’re braver, stronger, and smarter than you think – Pooh 🐻",
+      "Hakuna Matata – The Lion King 🦁"
+    ];
+    let currentIndex = 0;
+    const quoteBox = document.getElementById("disney-quote");
+    function rotateMinnieQuotes() {
+      quoteBox.textContent = disneyAffirmations[currentIndex];
+      currentIndex = (currentIndex + 1) % disneyAffirmations.length;
+    }
+    rotateMinnieQuotes();
+    setInterval(rotateMinnieQuotes, 5000);
   </script>
 </body>
 </html>
