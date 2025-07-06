@@ -9,12 +9,26 @@
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
-      background: url('hq721.jpg') center center / cover no-repeat fixed;
       margin: 0;
       color: #54455c;
+      position: relative; /* Required for ::before layering */
+      overflow-x: hidden;
     }
-      h1, h2, h3, h4, h5, h6 {
+    
+    h1, h2, h3, h4, h5, h6 {
       color: black;
+    }
+    
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('hq721.jpg') center center / cover no-repeat;
+      opacity: 0.25; /* 👈 adjust to 0.1–0.3 for subtle effect */
+      z-index: -1;
+      pointer-events: none;
     }
     
     header {
