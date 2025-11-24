@@ -293,6 +293,10 @@
     const datepickerEl = document.getElementById("datepicker");
     const datepicker = new Datepicker(datepickerEl, { autohide: true });
     datepicker.setDate(istNow);
+    setTimeout(() => {
+      updateContent(todayStr);
+        }, 150); // 100–200ms works bes
+    
 
     function tryImageExtensions(basePath, elementId) {
       const img = document.getElementById(elementId);
