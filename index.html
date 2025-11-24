@@ -11,39 +11,29 @@
       font-family: 'Quicksand', sans-serif;
       margin: 0;
       color: #54455c;
-      position: relative; /* Required for ::before layering */
+      position: relative;
       overflow-x: hidden;
     }
-    
-    h1, h2, h3, h4, h5, h6 {
-      color: black;
-    }
-    
+    h1, h2, h3, h4, h5, h6 { color: black; }
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: url('hq722.jpg') center center / cover no-repeat;
-      opacity: 0.25; /* 👈 adjust to 0.1–0.3 for subtle effect */
+      width: 100vw; height: 100vh;
+      background: url('hq722.jpg') center/cover no-repeat;
+      opacity: 0.25;
       z-index: -1;
       pointer-events: none;
     }
-    
     header {
-      display: flex;
-      flex-wrap: wrap;
+      display: flex; flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
     }
-    header h1#greeting {
-      width: 100%;
-      text-align: center;
-      font-size: 2rem;
-      margin: 0 auto;
-    }
+    /* Removed greeting */
+    header h1#greeting { display:none; }
+
     main {
       display: flex;
       flex-wrap: wrap;
@@ -51,163 +41,58 @@
       padding: 2rem;
       justify-content: space-between;
     }
-    .sidebar, .info-panel {
-      flex: 1;
-      max-width: 250px;
-    }
-    .pact-box {
-      background: #fef8ec;
-      border: 1px solid #e0c79e;
-      border-radius: 15px;
-      padding: 1.2rem;
-      font-family: 'Georgia', serif;
-      color: #5b4636;
-      position: relative;
-    }
-    .pact-box::before {
-      content: "";
-      display: block;
-      background: url('hello-kitty.jpg') no-repeat center center;
-      background-size: cover;
-      height: 120px;
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-    }
-    .quote-divider {
-      border-top: 1px solid #e0c79e;
-      margin: 1rem 0;
-    }
-    .content {
-      flex: 2;
-      text-align: center;
-    }
+
+    /* Commented pact section visually */
+    .pact-box { display:none; }
+
+    .content { flex: 2; text-align: center; }
+
     .calendar, .time-box {
       background: #ffe4f0;
       padding: 1rem;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(220, 180, 240, 0.3);
+      box-shadow: 0 0 10px rgba(220,180,240,0.3);
       text-align: center;
       margin-bottom: 1rem;
     }
-    .notes {
-      background: #fff8f0;
-      border: 1px dashed #c0a68c;
-      border-radius: 12px;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #775c46;
-    }
+
     iframe#spotify-frame {
-      width: 60%;
-      height: 80px;
+      width: 60%; height: 80px;
       border-radius: 8px;
     }
+
     img.flower {
-      width: 240px;
-      height: 320px;
+      width: 260px; height: 360px;
       object-fit: cover;
       border-radius: 12px;
     }
-    .her-moments {
-      margin-top: 2rem;
-      text-align: center;
-    }
-    .her-moments img {
-      max-width: 90%;
-      border-radius: 16px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    }
-    .her-moments blockquote {
-      margin-top: 1rem;
-      font-style: italic;
-      color: #8a6a9e;
-    }
 
-    /* Disney Affirmation Styling */
-    .disney-affirmation {
-      text-align: center;
-      margin-top: 3rem;
-    }
-    .minnie-quote-container {
-      position: relative;
-      display: inline-block;
-      width: 240px;
-    }
-    #minnie-img {
-      width: 100%;
-      display: block;
-    }
-   .minnie-quote-text {
-      position: absolute;
-      top: 65%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 150px;
-      height: 38px; /* enough room for two lines */
-      font-family: 'Georgia', serif;
-      font-size: 0.68rem;
-      font-weight: bold;
-      color: #3a2a2a;
-      text-align: center;
-      line-height: 1.2;
-      overflow: hidden;
-      word-break: break-word;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translate(-50%, -55%); }
-      to   { opacity: 1; transform: translate(-50%, -50%); }
-    }
+    /* Removed Amritsar box */
+    #india-time, #weather-india, h2:contains('Amritsar') { display:none; }
+
   </style>
 </head>
 <body>
   <header>
-    <h1 id="greeting">Good Morning 😇</h1>
     <div class="datetime"><p id="top-time"></p></div>
   </header>
 
   <main>
     <div class="sidebar">
-      <div class="pact-box">
-        <h3>Pact 💌</h3>
-        <ul>
-          <li>I’ll do drama</li>
-          <li>I’ll do nakhre</li>
-          <li>I’ll do ruthna</li>
-          <li>I’ll say maybe</li>
-          <li>I’ll be emotional</li>
-          <li>I’ll be cute</li>
-          <li>I’ll be always right</li>
-        </ul>
-        <div class="quote-divider"></div>
-        <blockquote id="her-quote"></blockquote>
-        <div class="her-moments">
-          <h3>Daily Memes 😂</h3>
-          <img id="her-pic" src="her pics/1.jpeg" alt="Meme" />
-        </div>
-      </div>
+      <!-- pact box hidden -->
     </div>
 
     <div class="content">
       <div class="section">
         <h2>Flower of the Day</h2>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <img id="flower-image-1" class="flower" src="" alt="Flower 1" />
-          <img id="flower-image-2" class="flower" src="" alt="Flower 2" />
+        <div style="display:flex; justify-content:center;">
+          <img id="flower-image-1" class="flower" src="" alt="Flower" />
         </div>
-      </div>
-      <div class="section" style="display: flex; flex-direction: column; align-items: center;">
-        <h2>Today's Song</h2>
-        <iframe id="spotify-frame" src="" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
 
-      <!-- 🌸 Disney Affirmation Block -->
-      <div class="disney-affirmation">
-        <h2>🌸Disney Whisper from Me to You...</h2>
-        <div class="minnie-quote-container">
-          <img id="minnie-img" src="minnie-quote.png" alt="Minnie silhouette" />
-          <div class="minnie-quote-text" id="disney-quote">✨</div>
-        </div>
+      <div class="section" style="display:flex; flex-direction:column; align-items:center;">
+        <h2>Today's Song</h2>
+        <iframe id="spotify-frame" src="" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
       </div>
     </div>
 
@@ -217,18 +102,11 @@
         <p id="calendar-date"></p>
         <input type="text" id="datepicker" placeholder="Select a date" readonly />
       </div>
+
       <div class="time-box">
-        <h2>Amritsar Time</h2>
-        <p id="india-time"></p>
-        <div class="weather" id="weather-india">Loading...</div>
         <h2>Ottawa Time</h2>
         <p id="canada-time"></p>
         <div class="weather" id="weather-canada">Loading...</div>
-      </div>
-      <div class="time-box">
-        <h2>When You’re Mad 😠</h2>
-        <img id="bonk-image" src="milkmocha-calm.png" alt="Milk and Mocha" style="width: 140px; border-radius: 12px; margin-bottom: 1rem;" />
-        <button onclick="bonk()" style="background-color: #ffc0cb; color: #333; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; font-family: 'Quicksand', sans-serif; cursor: pointer; font-size: 1rem; display: block; margin: 0 auto;">PRESS HERE!</button>
       </div>
     </div>
   </main>
@@ -238,11 +116,9 @@
     const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" }));
     const todayStr = istNow.toISOString().split("T")[0];
 
-    const indiaTime = document.getElementById("india-time");
     const canadaTime = document.getElementById("canada-time");
     setInterval(() => {
       const now = new Date();
-      indiaTime.textContent = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Kolkata" })).toLocaleTimeString();
       canadaTime.textContent = new Date(now.toLocaleString("en-US", { timeZone: "America/Toronto" })).toLocaleTimeString();
     }, 1000);
 
@@ -261,45 +137,7 @@
         document.getElementById(elementId).textContent = "Weather not available.";
       }
     }
-    fetchWeather(31.6340, 74.8723, "weather-india");
     fetchWeather(45.4215, -75.6972, "weather-canada");
-
-    async function updateHerPic() {
-      try {
-        const res = await fetch('her pics/memes.json');
-        const pics = await res.json();
-        const img = document.getElementById("her-pic");
-        let index = 0;
-        function rotate() {
-          img.src = `her pics/${pics[index]}?v=${Date.now()}`;
-          index = (index + 1) % pics.length;
-        }
-        rotate();
-        setInterval(rotate, 10000);
-      } catch (e) {
-        console.error("Could not load memes.json", e);
-      }
-    }
-    updateHerPic();
-
-    const quotes = [
-      "Jo sunna hai sun lia, Ab main so jate hoon",
-      "I would jump to all conclusions if those lead to you 🪿 - Kanika, May 2025",
-      "The way she says 'hmm' 💭",
-      "Kaukila Shaukila Dockila 👻",
-      "Giggle level over 3000 🎀",
-      "Pyari Precious Pookie 🎀",
-      "Monday Yellow 🌻",
-      "You’re un-matcha-able 🍵👌🏼",
-      "Paused. Felt. Gratefull !!!",
-      "Matcha is Grass,Grass is Matcha 🍵"
-    ];
-    function updateQuote() {
-      document.getElementById("her-quote").textContent =
-        quotes[Math.floor(Math.random() * quotes.length)];
-    }
-    updateQuote();
-    setInterval(updateQuote, 10000);
 
     const datepickerEl = document.getElementById("datepicker");
     const datepicker = new Datepicker(datepickerEl, { autohide: true });
@@ -321,7 +159,6 @@
       document.getElementById("calendar-date").textContent = istDate.toDateString();
 
       tryImageExtensions(`daily/${selectedDateStr}`, "flower-image-1");
-      tryImageExtensions(`daily/${selectedDateStr}b`, "flower-image-2");
 
       try {
         const res = await fetch("songs.json");
@@ -329,7 +166,7 @@
         const trackId = songs[selectedDateStr];
         const spotifyFrame = document.getElementById("spotify-frame");
         if (trackId) {
-          spotifyFrame.src = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator`;
+          spotifyFrame.src = `https://open.spotify.com/embed/track/${trackId}`;
           spotifyFrame.style.display = "block";
         } else {
           spotifyFrame.style.display = "none";
@@ -343,41 +180,8 @@
       const selectedDate = e.detail.date.toISOString().split("T")[0];
       updateContent(selectedDate);
     });
+
     updateContent(todayStr);
-
-    function bonk() {
-      const img = document.getElementById('bonk-image');
-      const frames = [
-        "milkmocha-punch.png",
-        "milkmocha-punch1.png",
-        "milkmocha-punch2.png"
-      ];
-      frames.forEach((src, i) => {
-        setTimeout(() => {
-          img.src = src;
-        }, i * 600);
-      });
-      setTimeout(() => {
-        img.src = "milkmocha-calm.png";
-      }, frames.length * 600);
-    }
-
-    // ✨ Disney Quote Rotation
-    const disneyAffirmations = [
-      "You're the flower that blooms in adversity – Mulan 🌸",
-      "You are the light that never goes out – Rapunzel ✨",
-      "Some people (you) are worth melting for – Olaf ☃️",
-      "You’re braver, stronger, and smarter than you think – Pooh 🐻",
-      "Hakuna Matata – The Lion King 🦁"
-    ];
-    let currentIndex = 0;
-    const quoteBox = document.getElementById("disney-quote");
-    function rotateMinnieQuotes() {
-      quoteBox.textContent = disneyAffirmations[currentIndex];
-      currentIndex = (currentIndex + 1) % disneyAffirmations.length;
-    }
-    rotateMinnieQuotes();
-    setInterval(rotateMinnieQuotes, 5000);
   </script>
 </body>
 </html>
