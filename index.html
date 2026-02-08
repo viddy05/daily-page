@@ -164,18 +164,21 @@
       box-shadow: 0 0 10px rgba(220, 180, 240, 0.25);
     }
     /* 🎀 Hello Kitty Bow on Wellness Board */
-    .wellness-board::before {
+    /* 🎀 Bow: attach to the left edge of the wellness card */
+    .wellness-board::before{
       content: "";
       position: absolute;
-      left: -26px;        /* pushes it slightly outside the card */
-      top: 48%;
-      transform: translateY(-50%) rotate(-6deg);
-      width: 60px;
-      height: 60px;
+      left: 14px;              /* ✅ inside the card */
+      top: 22px;               /* ✅ near top-left */
+      width: 44px;
+      height: 44px;
       background: url("decor/hello-kitty-bow.png") center / contain no-repeat;
-      z-index: 2;
+      transform: rotate(-8deg);
+      opacity: 0.95;
+      z-index: 3;
       pointer-events: none;
     }
+
 
 
     .wellness-sub {
@@ -217,15 +220,9 @@
     }
 
     .wellness-card {
-      display: flex;
-      gap: 1rem;
-      align-items: stretch;
-      justify-content: center;
-      flex-wrap: wrap;
-      background: #fef8ec;
-      border: 1px solid #e0c79e;
-      border-radius: 16px;
-      padding: 1rem;
+      border: none !important;
+      box-shadow: inset 0 0 0 1px rgba(224,199,158,0.25); /* optional soft edge */
+      background: #fffaf3;
     }
 
     .wellness-left {
@@ -639,5 +636,6 @@
   </script>
 </body>
 </html>
+
 
 
