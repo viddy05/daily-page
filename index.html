@@ -159,11 +159,24 @@
     .wellness-board {
       margin-top: 2rem;
       background: #fff8f0;
-      border: 1px dashed #c0a68c;
       border-radius: 16px;
       padding: 1.2rem;
       box-shadow: 0 0 10px rgba(220, 180, 240, 0.25);
     }
+    /* 🎀 Hello Kitty Bow on Wellness Board */
+    .wellness-board::before {
+      content: "";
+      position: absolute;
+      left: -26px;        /* pushes it slightly outside the card */
+      top: 48%;
+      transform: translateY(-50%) rotate(-6deg);
+      width: 60px;
+      height: 60px;
+      background: url("decor/hello-kitty-bow.png") center / contain no-repeat;
+      z-index: 2;
+      pointer-events: none;
+    }
+
 
     .wellness-sub {
       margin-top: -0.5rem;
@@ -626,4 +639,5 @@
   </script>
 </body>
 </html>
+
 
