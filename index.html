@@ -475,7 +475,7 @@
     }
 
     datepickerEl.addEventListener("changeDate", (e) => {
-      const selectedDate = e.detail.date.toISOString().split("T")[0];
+      const selectedDate = formatEST(e.detail.date);
       updateContent(selectedDate);
     });
     updateContent(todayStr);
@@ -626,3 +626,4 @@
   </script>
 </body>
 </html>
+
