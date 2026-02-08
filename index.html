@@ -4,247 +4,625 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Daily Hello</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/css/datepicker.min.css" />
-
   <style>
     body {
       font-family: 'Quicksand', sans-serif;
       margin: 0;
       color: #54455c;
-      position: relative;
+      position: relative; /* Required for ::before layering */
       overflow-x: hidden;
     }
-
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: black;
+    }
+    
     body::before {
       content: "";
       position: fixed;
-      inset: 0;
-      background: url('hand-drawn-sunflower-yellow-background.jpg') center / cover no-repeat;
-      opacity: 0.25;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url('hand-drawn-sunflower-yellow-background.jpg') center center / cover no-repeat;
+      opacity: 0.25; /* subtle effect */
       z-index: -1;
       pointer-events: none;
     }
-
-    h1, h2, h3 { color: black; }
-
+    
     header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
       padding: 1rem 2rem;
-      text-align: center;
     }
-
+    header h1#greeting {
+      width: 100%;
+      text-align: center;
+      font-size: 2rem;
+      margin: 0 auto;
+    }
     main {
       display: flex;
+      flex-wrap: wrap;
       gap: 2rem;
       padding: 2rem;
-      flex-wrap: wrap;
-      justify-content: center;
+      justify-content: space-between;
     }
-
     .sidebar, .info-panel {
-      max-width: 260px;
       flex: 1;
+      max-width: 250px;
     }
-
-    .content {
-      flex: 2;
-      min-width: 320px;
-      text-align: center;
-    }
-
     .pact-box {
       background: #fef8ec;
+      border: 1px solid #e0c79e;
       border-radius: 15px;
-      padding: 1rem;
+      padding: 1.2rem;
+      font-family: 'Georgia', serif;
+      color: #5b4636;
+      position: relative;
     }
-
     .pact-box::before {
       content: "";
       display: block;
+      background: url('hello-kitty.jpg') no-repeat center center;
+      background-size: cover;
       height: 120px;
-      background: url('hello-kitty.jpg') center / cover no-repeat;
+      width: 100%;
       border-radius: 12px;
       margin-bottom: 1rem;
     }
-
+    .quote-divider {
+      border-top: 1px solid #e0c79e;
+      margin: 1rem 0;
+    }
+    .content {
+      flex: 2;
+      text-align: center;
+    }
     .calendar, .time-box {
       background: #ffe4f0;
       padding: 1rem;
       border-radius: 12px;
+      box-shadow: 0 0 10px rgba(220, 180, 240, 0.3);
+      text-align: center;
       margin-bottom: 1rem;
     }
-
-    iframe { width: 60%; height: 80px; border-radius: 8px; }
-
+    .notes {
+      background: #fff8f0;
+      border: 1px dashed #c0a68c;
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #775c46;
+    }
+    iframe#spotify-frame {
+      width: 60%;
+      height: 80px;
+      border-radius: 8px;
+    }
     img.flower {
       width: 240px;
       height: 320px;
       object-fit: cover;
       border-radius: 12px;
     }
+    .her-moments {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .her-moments img {
+      max-width: 90%;
+      border-radius: 16px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .her-moments blockquote {
+      margin-top: 1rem;
+      font-style: italic;
+      color: #8a6a9e;
+    }
 
-    /* 🌷 WELLNESS BOARD */
+    /* Disney Affirmation Styling */
+    .disney-affirmation {
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .minnie-quote-container {
+      position: relative;
+      display: inline-block;
+      width: 240px;
+    }
+    #minnie-img {
+      width: 100%;
+      display: block;
+    }
+    .minnie-quote-text {
+      position: absolute;
+      top: 65%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 150px;
+      height: 38px;
+      font-family: 'Georgia', serif;
+      font-size: 0.68rem;
+      font-weight: bold;
+      color: #3a2a2a;
+      text-align: center;
+      line-height: 1.2;
+      overflow: hidden;
+      word-break: break-word;
+    }
+
+    /* 💗 Wellness Board (ADD-ON ONLY) */
     .wellness-board {
       margin-top: 2rem;
       background: #fff8f0;
+      border: 1px dashed #c0a68c;
       border-radius: 16px;
       padding: 1.2rem;
-      box-shadow: 0 0 12px rgba(220,180,240,0.3);
+      box-shadow: 0 0 10px rgba(220, 180, 240, 0.25);
+    }
+
+    .wellness-sub {
+      margin-top: -0.5rem;
+      color: #775c46;
+      font-size: 0.95rem;
     }
 
     .wellness-controls {
       display: flex;
-      gap: 0.6rem;
+      gap: 0.8rem;
       justify-content: center;
+      align-items: center;
       flex-wrap: wrap;
       margin: 1rem 0;
     }
 
-    select, button {
-      padding: 10px 14px;
+    #w-mood {
+      padding: 10px 12px;
       border-radius: 12px;
-      border: none;
+      border: 1px solid #e0c79e;
+      background: #fef8ec;
       font-family: 'Quicksand', sans-serif;
       font-weight: 700;
+      color: #5b4636;
+      outline: none;
+      min-width: 220px;
     }
 
-    select { background: #fef8ec; }
-
-    button {
-      background: #ffc0cb;
+    .wellness-btn {
+      background-color: #ffc0cb;
+      color: #333;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: bold;
+      font-family: 'Quicksand', sans-serif;
       cursor: pointer;
     }
 
     .wellness-card {
       display: flex;
       gap: 1rem;
+      align-items: stretch;
+      justify-content: center;
       flex-wrap: wrap;
       background: #fef8ec;
+      border: 1px solid #e0c79e;
       border-radius: 16px;
       padding: 1rem;
+    }
+
+    .wellness-left {
+      flex: 1;
+      min-width: 180px;
+      max-width: 220px;
+      display: flex;
+      justify-content: center;
       align-items: center;
     }
 
-    .wellness-card img {
-      width: 160px;
+    #wellness-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
       border-radius: 14px;
     }
 
-    .wellness-note {
-      background: #ffe4f0;
-      padding: 0.6rem;
-      border-radius: 10px;
-      margin-top: 0.5rem;
+    .wellness-right {
+      flex: 2;
+      min-width: 240px;
+      text-align: left;
     }
 
-    .comfort {
+    .wellness-right ul {
+      margin: 0.5rem 0 0.8rem 1.2rem;
+      color: #5b4636;
+    }
+
+    .wellness-note {
       margin-top: 0.6rem;
+      padding: 0.7rem 0.8rem;
+      border-radius: 12px;
+      background: #ffe4f0;
+      color: #54455c;
+      font-size: 0.95rem;
+      border: 1px solid rgba(220, 180, 240, 0.35);
+    }
+
+    .wellness-mini-btn {
+      margin-top: 0.7rem;
+      background: #ffd9a6;
+      color: #333;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-family: 'Quicksand', sans-serif;
+      cursor: pointer;
+    }
+
+    .wellness-comfort {
+      margin-top: 0.6rem;
+      font-weight: 700;
       color: #8a6a9e;
-      font-weight: bold;
+      min-height: 20px;
     }
   </style>
 </head>
-
 <body>
-<header>
-  <h1>Bagicha Zen 😇</h1>
-  <p id="top-time"></p>
-</header>
+  <header>
+    <h1 id="greeting">Bagicha Zen 😇</h1>
+    <div class="datetime"><p id="top-time"></p></div>
+  </header>
 
-<main>
-  <div class="sidebar">
-    <div class="pact-box">
-      <blockquote id="her-quote"></blockquote>
-      <img id="her-pic" src="her pics/1.jpeg" style="width:100%;border-radius:12px;margin-top:1rem;">
-    </div>
-  </div>
-
-  <div class="content">
-    <h2>Flower of the Day</h2>
-    <img id="flower-image-1" class="flower" src="">
-
-    <h2>Today's Song</h2>
-    <iframe id="spotify-frame"></iframe>
-
-    <!-- 🌷 WELLNESS BOARD -->
-    <div class="wellness-board">
-      <h2>🌷 Wellness Board</h2>
-      <p>Tell me how you’re feeling — I’ve got you 💛</p>
-
-      <div class="wellness-controls">
-        <select id="feel">
-          <option value="headache">Headache 🤕</option>
-          <option value="cold">Cold 🤧</option>
-          <option value="tired">Tired 💤</option>
-          <option value="stress">Stress 🌧️</option>
-          <option value="stomach">Stomach 🫖</option>
-        </select>
-        <button onclick="updateWellness()">Show comfort</button>
-      </div>
-
-      <div class="wellness-card">
-        <img id="wellness-img" src="wellness/headache.png">
-        <div>
-          <h3 id="wellness-title"></h3>
-          <ul id="wellness-list"></ul>
-          <div class="wellness-note" id="wellness-note"></div>
-          <button onclick="comfortTap()">Tap for comfort ✨</button>
-          <div class="comfort" id="comfort"></div>
+  <main>
+    <div class="sidebar">
+      <div class="pact-box">
+        <div class="quote-divider"></div>
+        <blockquote id="her-quote"></blockquote>
+        <div class="her-moments">
+          <h3>Daily Memes 😂</h3>
+          <img id="her-pic" src="her pics/1.jpeg" alt="Meme" />
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="info-panel">
-    <div class="calendar">
-      <h3>Date</h3>
-      <input id="datepicker">
+    <div class="content">
+      <div class="section">
+        <h2>Flower of the Day</h2>
+        <div style="display:flex; justify-content:center;">
+          <img id="flower-image-1" class="flower" src="" alt="Flower" />
+        </div>
+      </div>
+
+      <div class="section" style="display: flex; flex-direction: column; align-items: center;">
+        <h2>Today's Song</h2>
+        <iframe id="spotify-frame" src="" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      </div>
+
+      <!-- 💗 Wellness Board (ADD-ON ONLY) -->
+      <div class="wellness-board">
+        <h2>🌷 Wellness Board</h2>
+        <p class="wellness-sub">Pick what you’re feeling — tiny comfort plan for you 💛</p>
+
+        <div class="wellness-controls">
+          <select id="w-mood" aria-label="Wellness feeling">
+            <option value="headache">Headache 🤕</option>
+            <option value="cold">Cold / Congestion 🤧</option>
+            <option value="stomach">Stomach upset 🫖</option>
+            <option value="tired">Tired / Low energy 💤</option>
+            <option value="stress">Stress / Overwhelmed 🌧️</option>
+          </select>
+
+          <button class="wellness-btn" type="button" onclick="renderWellness()">Show comfort plan</button>
+        </div>
+
+        <div class="wellness-card">
+          <div class="wellness-left">
+            <img id="wellness-img" src="wellness/headache.png" alt="Wellness cute" />
+          </div>
+
+          <div class="wellness-right">
+            <h3 id="wellness-title">Headache comfort plan 🤕</h3>
+            <ul id="wellness-list"></ul>
+
+            <div class="wellness-note" id="wellness-note"></div>
+
+            <button class="wellness-mini-btn" type="button" onclick="comfortTap()">Tap for comfort ✨</button>
+            <div class="wellness-comfort" id="wellness-comfort"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🌸 Disney Affirmation Block -->
+      <div class="disney-affirmation">
+        <h2>🌸Disney Whisper from Me to You...</h2>
+        <div class="minnie-quote-container">
+          <img id="minnie-img" src="minnie-quote.png" alt="Minnie silhouette" />
+          <div class="minnie-quote-text" id="disney-quote">✨</div>
+        </div>
+      </div>
     </div>
-    <div class="time-box">
-      <h3>EST Time</h3>
-      <p id="canada-time"></p>
+
+    <div class="info-panel">
+      <div class="calendar">
+        <h2>Select Date 📅</h2>
+        <p id="calendar-date"></p>
+        <input type="text" id="datepicker" placeholder="Select a date" readonly />
+      </div>
+      <div class="time-box">
+        <h2>EST Time</h2>
+        <p id="canada-time"></p>
+        <div class="weather" id="weather-canada">Loading...</div>
+      </div>
+      <div class="time-box">
+        <h2>When You’re Mad 😠</h2>
+        <img id="bonk-image" src="milkmocha-calm.png" alt="Milk and Mocha" style="width: 140px; border-radius: 12px; margin-bottom: 1rem;" />
+        <button onclick="bonk()" style="background-color: #ffc0cb; color: #333; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; font-family: 'Quicksand', sans-serif; cursor: pointer; font-size: 1rem; display: block; margin: 0 auto;">PRESS HERE!</button>
+      </div>
     </div>
-  </div>
-</main>
+  </main>
 
-<script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.3.4/dist/js/datepicker-full.min.js"></script>
+  <script>
+    function formatEST(date) {
+      const est = new Date(date.toLocaleString("en-US", { timeZone: "America/New_York" }));
+      const y = est.getFullYear();
+      const m = String(est.getMonth() + 1).padStart(2, '0');
+      const d = String(est.getDate()).padStart(2, '0');
+      return `${y}-${m}-${d}`;
+    }
+    
+    const istNow = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+    const todayStr = formatEST(new Date());
 
-<script>
-/* TIME */
-setInterval(() => {
-  topTime.textContent = new Date().toLocaleString();
-  canadaTime.textContent = new Date().toLocaleTimeString("en-US",{timeZone:"America/Toronto"});
-},1000);
+    const canadaTime = document.getElementById("canada-time");
+    setInterval(() => {
+      const now = new Date();
+      canadaTime.textContent = new Date(now.toLocaleString("en-US", { timeZone: "America/Toronto" })).toLocaleTimeString();
+    }, 1000);
 
-/* QUOTES */
-const quotes=["You’re sunshine 🌻","Pretty eyes ✨","Soft heart 💛"];
-herQuote.textContent = quotes[Math.floor(Math.random()*quotes.length)];
+    const topTime = document.getElementById("top-time");
+    setInterval(() => {
+      const now = new Date();
+      topTime.textContent = now.toLocaleString("en-US", { dateStyle: "full", timeStyle: "short" });
+    }, 1000);
 
-/* WELLNESS DATA */
-const plans={
-  headache:{img:"wellness/headache.png",title:"Headache comfort 🤕",tips:["Drink water 💧","Dim lights 🌙","Cold/warm compress 🧊"],note:"Rest is productive too 💛"},
-  cold:{img:"wellness/cold.png",title:"Cold comfort 🤧",tips:["Warm tea 🍵","Steam shower 🚿","Cozy rest 🧣"],note:"Slow healing is still healing"},
-  tired:{img:"wellness/tired.png",title:"Tired comfort 💤",tips:["Short nap 😴","Fruit snack 🍓","Early bedtime 🌙"],note:"You’re allowed to rest"},
-  stress:{img:"wellness/stress.png",title:"Stress comfort 🌧️",tips:["Deep breathing 🌬️","Music 🎧","Gentle thoughts 💌"],note:"One step at a time"},
-  stomach:{img:"wellness/stomach.png",title:"Stomach comfort 🫖",tips:["Small sips 💧","Plain food 🍞","Warm pad 🌼"],note:"Be gentle today"}
-};
+    async function fetchWeather(lat, lon, elementId) {
+      try {
+        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=1&current_weather=true`);
+        const data = await res.json();
+        document.getElementById(elementId).textContent = `${data.current_weather.temperature}°C`;
+      } catch {
+        document.getElementById(elementId).textContent = "Weather not available.";
+      }
+    }
+    fetchWeather(45.4215, -75.6972, "weather-canada");
 
-function updateWellness(){
-  const f=feel.value,p=plans[f];
-  wellnessImg.src=p.img;
-  wellnessTitle.textContent=p.title;
-  wellnessList.innerHTML=p.tips.map(t=>`<li>${t}</li>`).join("");
-  wellnessNote.textContent=p.note;
-  comfort.textContent="";
-}
+    async function updateHerPic() {
+      try {
+        const res = await fetch('her pics/memes.json');
+        const pics = await res.json();
+        const img = document.getElementById("her-pic");
+        let index = 0;
+        function rotate() {
+          img.src = `her pics/${pics[index]}?v=${Date.now()}`;
+          index = (index + 1) % pics.length;
+        }
+        rotate();
+        setInterval(rotate, 10000);
+      } catch (e) {
+        console.error("Could not load memes.json", e);
+      }
+    }
+    updateHerPic();
 
-const comforts=["I’m here 💛","You’re safe 🌷","Rest, no guilt ✨"];
-function comfortTap(){
-  comfort.textContent=comforts[Math.floor(Math.random()*comforts.length)];
-}
+    const quotes = [
+      "The way she says 'hmm' 💭",
+      "Giggle level over 3000 🎀",
+      "Monday Yellow 🌻",
+      "You’re un-matcha-able 🍵👌🏼",
+      "Pretty Eyes !!!",
+    ];
+    function updateQuote() {
+      document.getElementById("her-quote").textContent =
+        quotes[Math.floor(Math.random() * quotes.length)];
+    }
+    updateQuote();
+    setInterval(updateQuote, 10000);
 
-updateWellness();
-</script>
+    const datepickerEl = document.getElementById("datepicker");
+    const datepicker = new Datepicker(datepickerEl, { autohide: true });
+    datepicker.setDate(istNow);
+    setTimeout(() => {
+      updateContent(todayStr);
+    }, 150);
+
+    function tryImageExtensions(basePath, elementId) {
+      const img = document.getElementById(elementId);
+      const jpgPath = `${basePath}.jpg`;
+      const jpegPath = `${basePath}.jpeg`;
+      img.onerror = () => {
+        img.onerror = null;
+        img.src = jpegPath;
+      };
+      img.src = jpgPath;
+    }
+
+    async function updateContent(selectedDateStr) {
+      const istDate = new Date(new Date(selectedDateStr).toLocaleString("en-US", { timeZone: "America/New_York" }));
+      document.getElementById("calendar-date").textContent = istDate.toDateString();
+
+      tryImageExtensions(`daily/${selectedDateStr}`, "flower-image-1");
+
+      try {
+        const res = await fetch("songs.json");
+        const songs = await res.json();
+        const trackId = songs[selectedDateStr];
+        const spotifyFrame = document.getElementById("spotify-frame");
+        if (trackId) {
+          spotifyFrame.src = `https://open.spotify.com/embed/track/${trackId}?utm_source=generator`;
+          spotifyFrame.style.display = "block";
+        } else {
+          spotifyFrame.style.display = "none";
+        }
+      } catch (err) {
+        document.getElementById("spotify-frame").style.display = "none";
+      }
+    }
+
+    datepickerEl.addEventListener("changeDate", (e) => {
+      const selectedDate = e.detail.date.toISOString().split("T")[0];
+      updateContent(selectedDate);
+    });
+    updateContent(todayStr);
+
+    function bonk() {
+      const img = document.getElementById('bonk-image');
+      const frames = [
+        "milkmocha-punch.png",
+        "milkmocha-punch1.png",
+        "milkmocha-punch2.png"
+      ];
+      frames.forEach((src, i) => {
+        setTimeout(() => {
+          img.src = src;
+        }, i * 600);
+      });
+      setTimeout(() => {
+        img.src = "milkmocha-calm.png";
+      }, frames.length * 600);
+    }
+
+    // 💗 Wellness Board (ADD-ON ONLY)
+    const wellnessPlans = {
+      headache: {
+        title: "Headache comfort plan 🤕",
+        img: "wellness/headache.png",
+        tips: [
+          "Drink a glass of water (slow sips) 💧",
+          "Dim lights + reduce screen brightness 🌙",
+          "Cold or warm compress on forehead/neck 🧊🔥",
+          "Gentle neck/shoulder stretch (30 sec) 🧸",
+          "Peppermint or ginger tea (if you like) 🍵"
+        ],
+        note: "If it feels very severe or keeps coming back a lot, it’s safer to check in with a doctor. For now: tiny comfort steps + rest 💛"
+      },
+      cold: {
+        title: "Cold / congestion comfort plan 🤧",
+        img: "wellness/cold.png",
+        tips: [
+          "Warm fluids (tea/soup) + keep sipping 💛",
+          "Steam shower for 5–10 mins 🌫️",
+          "Cozy blanket + rest 🧣",
+          "Easy food, nothing too heavy 🍲",
+          "Short nap if your body wants it 💤"
+        ],
+        note: "If there’s high fever or breathing trouble, it’s safer to get medical advice."
+      },
+      stomach: {
+        title: "Stomach upset comfort plan 🫖",
+        img: "wellness/stomach.png",
+        tips: [
+          "Small sips of water 💧",
+          "Plain food if you can (toast/rice/banana) 🍞🍌",
+          "Ginger tea (gentle) 🍵",
+          "Warm heating pad (light) 🌼",
+          "Rest — no rush 💤"
+        ],
+        note: "If pain is strong or it lasts a while, it’s safer to get medical help."
+      },
+      tired: {
+        title: "Tired / low energy comfort plan 💤",
+        img: "wellness/tired.png",
+        tips: [
+          "Hydrate + tiny snack (fruit/yogurt) 🍓",
+          "Short nap (20–30 mins) 😴",
+          "Warm shower + comfy clothes 🚿",
+          "Light stretch (1 minute) 🌿",
+          "Early bedtime, no guilt 💛"
+        ],
+        note: "Recovery is productive too. Be gentle with yourself."
+      },
+      stress: {
+        title: "Stress / overwhelmed comfort plan 🌧️",
+        img: "wellness/stress.png",
+        tips: [
+          "Breathe in 4s, out 6s × 5 cycles 🌬️",
+          "Drink water + relax shoulders 💧",
+          "Write 3 tiny tasks only ✅",
+          "Comfort song + cozy corner 🎧",
+          "Soft reminder: you’re not alone 💌"
+        ],
+        note: "You don’t have to solve everything today. One tiny step is enough."
+      }
+    };
+
+    function renderWellness() {
+      const feelEl = document.getElementById("w-mood");
+      if (!feelEl) return;
+
+      const plan = wellnessPlans[feelEl.value];
+      if (!plan) return;
+
+      const title = document.getElementById("wellness-title");
+      const img = document.getElementById("wellness-img");
+      const list = document.getElementById("wellness-list");
+      const note = document.getElementById("wellness-note");
+      const comfort = document.getElementById("wellness-comfort");
+
+      if (title) title.textContent = plan.title;
+      if (img) img.src = plan.img;
+
+      if (list) {
+        list.innerHTML = "";
+        plan.tips.forEach(t => {
+          const li = document.createElement("li");
+          li.textContent = t;
+          list.appendChild(li);
+        });
+      }
+
+      if (note) note.textContent = plan.note;
+      if (comfort) comfort.textContent = "";
+    }
+
+    const comfortLines = [
+      "I’m here. One sip at a time 💛",
+      "You can rest — no guilt, only cozy 🌷",
+      "You’re doing your best, and that’s enough ✨",
+      "Sending warm soup energy 🍲",
+      "Tiny steps. Big love. Always 🫶"
+    ];
+
+    function comfortTap() {
+      const box = document.getElementById("wellness-comfort");
+      if (!box) return;
+      box.textContent = comfortLines[Math.floor(Math.random() * comfortLines.length)];
+    }
+
+    // Initialize wellness once (won't affect anything else)
+    setTimeout(renderWellness, 0);
+
+    // ✨ Disney Quote Rotation
+    const disneyAffirmations = [
+      "You're the flower that blooms in adversity – Mulan 🌸",
+      "You are the light that never goes out – Rapunzel ✨",
+      "Some people (you) are worth melting for – Olaf ☃️",
+      "You’re braver, stronger, and smarter than you think – Pooh 🐻",
+      "Hakuna Matata – The Lion King 🦁"
+    ];
+    let currentIndex = 0;
+    const quoteBox = document.getElementById("disney-quote");
+    function rotateMinnieQuotes() {
+      quoteBox.textContent = disneyAffirmations[currentIndex];
+      currentIndex = (currentIndex + 1) % disneyAffirmations.length;
+    }
+    rotateMinnieQuotes();
+    setInterval(rotateMinnieQuotes, 5000);
+  </script>
 </body>
 </html>
